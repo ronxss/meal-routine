@@ -14,7 +14,7 @@ App (PWA) feito a partir do artefato **Dieta de Dezembro**: plano de refeições
 
 ```
  Celular A ─┐                        ┌─> Firestore: casa/plano   (dados dos dois)
-            ├─ app (public/) ────────┼─> Firestore: casa/agenda  (avisos calculados pelo app)
+            ├─ app (docs/) ─────────┼─> Firestore: casa/agenda  (avisos calculados pelo app)
  Celular B ─┘                        └─> Firestore: tokens/*     (celulares com aviso ligado)
 
  Notificador (a cada minuto) ── lê agenda + tokens ── envia via Firebase Cloud Messaging ──> A e B
@@ -22,7 +22,7 @@ App (PWA) feito a partir do artefato **Dieta de Dezembro**: plano de refeições
 
 | Pasta/arquivo | O que é |
 |---|---|
-| `public/` | O app: `index.html`, `app.js` (motor do plano, vindo do artefato), `sw.js` (offline + push), `config.js` (seu Firebase) |
+| `docs/` | O app: `index.html`, `app.js` (motor do plano, vindo do artefato), `sw.js` (offline + push), `config.js` (seu Firebase) |
 | `notifier/` | Notificador sem dependências: `worker.mjs` (Cloudflare Workers) e `run.mjs` (Node) |
 | `firestore.rules` | Só os e-mails de vocês dois leem e escrevem |
 | `wrangler.toml` | Configuração do Worker que roda a cada minuto |
@@ -33,8 +33,8 @@ App (PWA) feito a partir do artefato **Dieta de Dezembro**: plano de refeições
 1. Em <https://console.firebase.google.com> crie um projeto.
 2. **Authentication › Sign-in method**: ative **E-mail/senha**. Em **Users**, crie as duas contas (uma para cada pessoa). Em **Settings › User actions**, desmarque *Enable create (sign-up)* para ninguém mais se cadastrar.
 3. **Firestore Database**: crie o banco (modo produção, região `southamerica-east1`).
-4. **Configurações do projeto › Geral › Seus apps**: adicione um app **Web** e copie o `firebaseConfig` para `public/config.js`.
-5. **Configurações do projeto › Cloud Messaging › Certificados push da Web**: gere o par de chaves e cole em `vapidKey` no `public/config.js`.
+4. **Configurações do projeto › Geral › Seus apps**: adicione um app **Web** e copie o `firebaseConfig` para `docs/config.js`.
+5. **Configurações do projeto › Cloud Messaging › Certificados push da Web**: gere o par de chaves e cole em `vapidKey` no `docs/config.js`.
 6. Em `firestore.rules`, troque `pessoa1@exemplo.com` e `pessoa2@exemplo.com` pelos e-mails das duas contas.
 
 ### 2. Publicar o app e as regras
@@ -44,7 +44,7 @@ firebase login
 cp .firebaserc.example .firebaserc   # troque SEU-PROJETO pelo ID do projeto
 firebase deploy --only hosting,firestore:rules
 ```
-O app fica em `https://SEU-PROJETO.web.app`. (Também dá para usar GitHub Pages servindo a pasta `public/`; publique as regras com `firebase deploy --only firestore:rules`.)
+O app fica em `https://SEU-PROJETO.web.app`. (Também dá para usar GitHub Pages (Settings › Pages › branch, pasta `/docs`); publique as regras com `firebase deploy --only firestore:rules`.)
 
 ### 3. Notificador (Cloudflare Workers, grátis, roda a cada minuto)
 1. Firebase › **Configurações do projeto › Contas de serviço › Gerar nova chave privada**. Guarde o JSON **fora do repositório**.
@@ -68,7 +68,7 @@ Sem Cloudflare? Dá para rodar `node notifier/run.mjs` em qualquer máquina com 
 
 ## Desenvolvimento
 ```bash
-npm start      # serve public/ em http://localhost:5173 (sem Firebase: modo local)
+npm start      # serve docs/ em http://localhost:5173 (sem Firebase: modo local)
 npm test       # testes do notificador
 ```
 
