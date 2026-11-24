@@ -1,0 +1,11 @@
+# Notificador no Cloudflare Workers (plano gratuito). Veja o README.
+name = "dieta-notificador"
+main = "notifier/worker.mjs"
+compatibility_date = "2026-11-01"
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+# Endereço onde o app está publicado (o toque na notificação abre ele).
+APP_URL = "https://SEU-PROJETO.web.app/"

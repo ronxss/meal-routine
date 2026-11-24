@@ -1,0 +1,17 @@
+# Roda o notificador uma vez, manualmente (Actions › Notificar › Run workflow).
+# Útil para testar a conta de serviço. Para avisos no horário certo, use o Cloudflare Worker:
+# o agendamento do GitHub atrasa e, em repositório privado, consome minutos do plano.
+name: Notificar
+on:
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node notifier/run.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          APP_URL: ${{ vars.APP_URL }}

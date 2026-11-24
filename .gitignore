@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.firebaserc
+*.service-account.json
+conta-de-servico*.json
+.dev.vars

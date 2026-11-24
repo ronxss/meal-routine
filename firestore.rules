@@ -1,0 +1,25 @@
+rules_version = '2';
+// Só as duas pessoas da casa leem e escrevem. Troque os e-mails pelos de vocês.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function membro() {
+      return request.auth != null
+        && request.auth.token.email in ['pessoa1@exemplo.com', 'pessoa2@exemplo.com'];
+    }
+    // Plano, marcações, gastos e ajustes (compartilhado pelos dois)
+    match /casa/plano { allow read, write: if membro(); }
+    // Agenda de avisos calculada pelo app; o notificador lê
+    match /casa/agenda { allow read, write: if membro(); }
+    // Botão "Enviar teste"
+    match /casa/teste { allow read, write: if membro(); }
+    // Controle do notificador (só ele escreve, com a conta de serviço)
+    match /casa/envio { allow read: if membro(); }
+    // "Este celular é de..."
+    match /membros/{uid} { allow read, write: if membro() && request.auth.uid == uid; }
+    // Celulares que recebem notificação
+    match /tokens/{t} {
+      allow read, delete: if membro();
+      allow create, update: if membro() && request.resource.data.uid == request.auth.uid;
+    }
+  }
+}
