@@ -8,4 +8,4 @@ crons = ["* * * * *"]
 
 [vars]
 # Endereço onde o app está publicado (o toque na notificação abre ele).
-APP_URL = "https://SEU-PROJETO.web.app/"
+APP_URL = "https://meal-routine.web.app/"
