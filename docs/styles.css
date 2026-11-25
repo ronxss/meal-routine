@@ -1,11 +1,11 @@
 /* VOICE: prático e animado, um caderno de cozinha que cabe no bolso
    IDEA: o cartão alimentação + etiquetas de fita crepe nas marmitas
    PICTURE: o cartão com saldo e medidor do mês no topo do painel
-   COLOUR and TYPE: paleta A (Manjericão e tomate); Figtree, Caveat nas etiquetas
+   COLOUR and TYPE: paleta D (Mar e coral); Figtree, Caveat nas etiquetas
    LAYOUT: coluna de celular, abas embaixo, seções empilhadas; duas colunas acima de 900px */
-:root{color-scheme:light;--bg:#f6f7f3;--card:#fff;--ink:#13201a;--mut:#56665d;--line:#e1e6df;--basil:#1d5639;--basil2:#2f7a52;--tom:#d9442a;--zone:#eef2ea;--tape:#f2e2ad;--tapeInk:#3b2f12;--chk:#2f7a52;--hero2:#24694a;--cardA:#e5532f;--cardB:#b5301a;--cardE:#7f2010}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68;--hero2:#1a4a33;--cardA:#d94a2a;--cardB:#a52b17;--cardE:#5e170b}}
-:root[data-theme=dark]{color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68;--hero2:#1a4a33;--cardA:#d94a2a;--cardB:#a52b17;--cardE:#5e170b}
+:root{color-scheme:light;--bg:#f3f7f7;--card:#fff;--ink:#0f2024;--mut:#4f6569;--line:#dce7e8;--basil:#0d4f5c;--basil2:#13798a;--tom:#d6453f;--zone:#e6f0f1;--tape:#f6dcc8;--tapeInk:#432414;--chk:#13798a;--hero2:#11606f;--cardA:#f2716a;--cardB:#c93a3a;--cardE:#8e2222}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0a1416;--card:#122023;--ink:#e4f0f1;--mut:#93adb1;--line:#21363a;--basil:#0a3840;--basil2:#5ccbd8;--tom:#ff7f78;--zone:#17292d;--tape:#5c3f2c;--tapeInk:#f8e2d2;--chk:#1c8f9f;--hero2:#0d4752;--cardA:#e2625b;--cardB:#b03232;--cardE:#651a1a}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0a1416;--card:#122023;--ink:#e4f0f1;--mut:#93adb1;--line:#21363a;--basil:#0a3840;--basil2:#5ccbd8;--tom:#ff7f78;--zone:#17292d;--tape:#5c3f2c;--tapeInk:#f8e2d2;--chk:#1c8f9f;--hero2:#0d4752;--cardA:#e2625b;--cardB:#b03232;--cardE:#651a1a}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 h1,h2,h3{line-height:1.1;margin:0;text-wrap:balance}
