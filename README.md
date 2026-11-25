@@ -29,6 +29,8 @@ App (PWA) feito a partir do artefato **Dieta de Dezembro**: plano de refeições
 
 ## Colocar no ar (uma vez, ~20 min)
 
+> **Só pelo celular:** o workflow `.github/workflows/publicar.yml` publica o app, as regras e o notificador. Cadastre os segredos `FIREBASE_SERVICE_ACCOUNT` (JSON da conta de serviço, com o papel *Administrador do Firebase* no IAM), e para o notificador `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` e `RUN_KEY`. Depois, Actions › **Publicar** › *Run workflow*. Cada push em `docs/`, `notifier/` ou nas regras publica de novo sozinho. Os passos abaixo são o caminho pelo computador.
+
 ### 1. Firebase (grátis, plano Spark)
 1. Em <https://console.firebase.google.com> crie um projeto.
 2. **Authentication › Sign-in method**: ative **E-mail/senha**. Em **Users**, crie as duas contas (uma para cada pessoa). Em **Settings › User actions**, desmarque *Enable create (sign-up)* para ninguém mais se cadastrar.
