@@ -1,5 +1,5 @@
 // Service worker: funciona offline e recebe as notificações push (Firebase Cloud Messaging).
-const CACHE = 'dieta-v1';
+const CACHE = 'dieta-v2';
 const ASSETS = ['./', 'index.html', 'styles.css', 'app.js', 'config.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/badge-96.png'];
 

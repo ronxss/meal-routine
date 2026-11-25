@@ -1,11 +1,11 @@
 /* VOICE: prático e animado, um caderno de cozinha que cabe no bolso
    IDEA: o cartão alimentação + etiquetas de fita crepe nas marmitas
    PICTURE: o cartão com saldo e medidor do mês no topo do painel
-   COLOUR and TYPE: verde manjericão dominante, tomate de acento, branco-arroz; Figtree, Caveat nas etiquetas
+   COLOUR and TYPE: paleta A (Manjericão e tomate); Figtree, Caveat nas etiquetas
    LAYOUT: coluna de celular, abas embaixo, seções empilhadas; duas colunas acima de 900px */
-:root{color-scheme:light;--bg:#f6f7f3;--card:#fff;--ink:#13201a;--mut:#56665d;--line:#e1e6df;--basil:#1d5639;--basil2:#2f7a52;--tom:#d9442a;--zone:#eef2ea;--tape:#f2e2ad;--tapeInk:#3b2f12;--chk:#2f7a52}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68}}
-:root[data-theme=dark]{color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68}
+:root{color-scheme:light;--bg:#f6f7f3;--card:#fff;--ink:#13201a;--mut:#56665d;--line:#e1e6df;--basil:#1d5639;--basil2:#2f7a52;--tom:#d9442a;--zone:#eef2ea;--tape:#f2e2ad;--tapeInk:#3b2f12;--chk:#2f7a52;--hero2:#24694a;--cardA:#e5532f;--cardB:#b5301a;--cardE:#7f2010}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68;--hero2:#1a4a33;--cardA:#d94a2a;--cardB:#a52b17;--cardE:#5e170b}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0d1511;--card:#15201a;--ink:#e8efe9;--mut:#9fb2a7;--line:#26352d;--basil:#143a27;--basil2:#6fcf98;--tom:#ff7b5e;--zone:#1a2a21;--tape:#5a4e2a;--tapeInk:#f6ecc9;--chk:#3f9a68;--hero2:#1a4a33;--cardA:#d94a2a;--cardB:#a52b17;--cardE:#5e170b}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 h1,h2,h3{line-height:1.1;margin:0;text-wrap:balance}
@@ -25,7 +25,7 @@ button,input,select{font:inherit;color:inherit}
 .hero .lede{opacity:.88;max-width:60ch;margin-bottom:18px}
 .hgrid{display:grid;gap:16px}
 @media(min-width:900px){.hgrid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:stretch}.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px;align-items:start}}
-.vcard{position:relative;border-radius:22px;padding:20px 20px 18px;color:#fff;background:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.2),transparent 55%),linear-gradient(135deg,#e5532f,#b5301a);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 30px -14px rgba(0,0,0,.55),0 5px 0 #7f2010;overflow:hidden}
+.vcard{position:relative;border-radius:22px;padding:20px 20px 18px;color:#fff;background:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.2),transparent 55%),linear-gradient(135deg,var(--cardA),var(--cardB));box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 30px -14px rgba(0,0,0,.55),0 5px 0 var(--cardE);overflow:hidden}
 .vcard::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='%23fff'%3E%3Cellipse cx='10' cy='12' rx='5' ry='2.2' transform='rotate(30 10 12)'/%3E%3Cellipse cx='40' cy='20' rx='5' ry='2.2' transform='rotate(-20 40 20)'/%3E%3Cellipse cx='24' cy='46' rx='5' ry='2.2' transform='rotate(70 24 46)'/%3E%3Cellipse cx='54' cy='52' rx='5' ry='2.2' transform='rotate(10 54 52)'/%3E%3C/g%3E%3C/svg%3E")}
 .vrow{display:flex;justify-content:space-between;align-items:center;font-weight:600;position:relative;z-index:1}
 .vcard .big{font-size:clamp(36px,10vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.01em;margin-top:14px;white-space:nowrap;position:relative;z-index:1}
@@ -167,7 +167,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visi
 .rtab{display:grid;gap:6px 16px;align-items:baseline}.rtab .h{font-size:13px;color:var(--mut);font-weight:600;text-align:right}.rtab .n{text-align:right;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 .whobar{background:var(--basil);padding:0 0 10px}.whobar .seg{background:rgba(255,255,255,.14)}.whobar .seg button{color:#fff}.whobar .seg button[aria-pressed=true]{background:#fff;color:var(--basil)}
-.hero.pz1{background:linear-gradient(180deg,var(--basil),#24694a)}
+.hero.pz1{background:linear-gradient(180deg,var(--basil),var(--hero2))}
 details.card.alt{background:var(--zone);border-style:dashed}
 input[type=email],input[type=password]{min-height:44px;font-size:16px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:8px 12px;width:100%}
 .card>.xrow:first-child{border-top:0}
