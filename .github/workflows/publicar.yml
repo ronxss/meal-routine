@@ -1,0 +1,55 @@
+# Publica tudo sem precisar de computador: Actions › Publicar › Run workflow.
+# Segredos necessários (Settings › Secrets and variables › Actions):
+#   FIREBASE_SERVICE_ACCOUNT  conteúdo do JSON da conta de serviço do Firebase
+#   CLOUDFLARE_API_TOKEN      (opcional) token "Edit Cloudflare Workers", para o notificador
+#   CLOUDFLARE_ACCOUNT_ID     (opcional) ID da conta Cloudflare
+#   RUN_KEY                   (obrigatório com o notificador) senha para testar o notificador em /run
+name: Publicar
+on:
+  workflow_dispatch:
+  push:
+    paths: ['docs/**', 'firestore.rules', 'firebase.json', 'notifier/**', 'wrangler.toml']
+
+jobs:
+  firebase:
+    name: App e regras (Firebase)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Conferir segredo
+        env: { SA: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' }
+        run: |
+          if [ -z "$SA" ]; then echo "::error::Falta o segredo FIREBASE_SERVICE_ACCOUNT"; exit 1; fi
+          printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
+          node -e "JSON.parse(require('fs').readFileSync(process.argv[1]))" "$RUNNER_TEMP/sa.json" || { echo "::error::O segredo não é um JSON válido: cole o conteúdo inteiro do arquivo"; exit 1; }
+      - name: Publicar no Firebase
+        run: npx -y firebase-tools@latest deploy --only hosting,firestore:rules --project meal-routine --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
+      - run: rm -f "$RUNNER_TEMP/sa.json"
+        if: always()
+
+  notificador:
+    name: Notificador (Cloudflare)
+    runs-on: ubuntu-latest
+    env:
+      CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.CF != ''
+      - name: Publicar o Worker
+        if: env.CF != ''
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          secrets: |
+            FIREBASE_SERVICE_ACCOUNT
+            RUN_KEY
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          RUN_KEY: ${{ secrets.RUN_KEY }}
+      - if: env.CF == ''
+        run: echo "Sem CLOUDFLARE_API_TOKEN, o notificador não foi publicado."
